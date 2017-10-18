@@ -1,0 +1,8 @@
+{
+  "DB":{
+  "host": "localhost",
+  "database": "dbone",
+  "user": "userone",
+  "password": "Bb12345!"
+}
+}
