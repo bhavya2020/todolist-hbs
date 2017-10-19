@@ -92,6 +92,7 @@ exports.delete=function deletion(cb) {
     )
 };
 exports.checktodo=function checkTodo(id,cb) {
+    console.log(id);
     const conn = mysql.createConnection(dbconfig);
     conn.query(
         `update todo set done=true where od = ? ;`,

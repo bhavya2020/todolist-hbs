@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<body>
+<form method="post">
+    <input name="task">
+    <button formaction="http://localhost:5555/todos/add" >add</button>
+    <button formaction="http://localhost:5555/todos/delete">delete</button>
+</form>
+<ul>
+
+    {{#each todolist as |todo|}}
+        <li id="{{todo.od}}">
+            <form method="post">
+                <input name="id" value="{{todo.od}}" style="display: none">
+                <input name="check" type="checkbox" onchange="">
+                {{todo.task}}
+                <button formaction="http://localhost:5555/todos/del">delete</button>
+                {{#ifCond todo.od }}
+                {{else}}
+                <button formaction="http://localhost:5555/todos/up">up</button>
+                {{/ifCond}}
+                {{#ifCond2 todo.od }}
+                {{else}}
+                <button formaction="http://localhost:5555/todos/down">down</button>
+                {{/ifCond2}}
+            </form>
+        </li>
+    {{/each}}
+</ul>
+</body>
+</html>

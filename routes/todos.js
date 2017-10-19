@@ -1,12 +1,26 @@
 const route = require('express').Router();
 const todos = require('../db/todotable');
-
+const Handlebars=require('hbs').handlebars;
 route.get('/', (req, res) => {
     todos.showtodo((todolist) => {
-        res.send(todolist)
+        Handlebars.registerHelper('ifCond', function(v1, options) {
+            if(v1 == 1) {
+                return options.fn(this);
+            }
+            return options.inverse(this);
+        });
+
+        Handlebars.registerHelper('ifCond2', function(v1, options) {
+            if(v1 == todolist.length) {
+                return options.fn(this);
+            }
+            return options.inverse(this);
+        });
+
+
+        res.render('todos', {todolist});
     })
 });
-
 route.post('/add', (req, res) => {
     todos.addtodo(req.body.task, () => {
         res.redirect('.')
@@ -23,6 +37,7 @@ route.post('/del', (req, res) => {
     })
 });
 route.post('/strike', (req, res) => {
+    console.log(req);
     if(req)
     todos.checktodo(req.body.id, () => {
         res.redirect('.')
@@ -32,7 +47,7 @@ route.post('/unstrike', (req, res) => {
     if(req)
         todos.unchecktodo(req.body.id, () => {
             res.redirect('.')
-        })
+    })
 });
 route.post('/up', (req, res) => {
     todos.up(req.body.id, () => {
