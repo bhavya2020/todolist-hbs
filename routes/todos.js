@@ -17,7 +17,14 @@ route.get('/', (req, res) => {
             return options.inverse(this);
         });
 
+        Handlebars.registerHelper('ifCond3', function(v1, options) {
+            if(v1 == true) {
+                return options.fn(this);
+            }
+            return options.inverse(this);
+        });
 
+        console.log(todolist);
         res.render('todos', {todolist});
     })
 });
@@ -37,7 +44,6 @@ route.post('/del', (req, res) => {
     })
 });
 route.post('/strike', (req, res) => {
-    console.log(req);
     if(req)
     todos.checktodo(req.body.id, () => {
         res.redirect('.')
